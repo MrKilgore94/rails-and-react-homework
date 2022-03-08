@@ -8,13 +8,15 @@ export const DataContext = React.createContext();
 const DataProvider = (props) => {
   const [guns, setGuns] = useState([]);
   useEffect(()=>{
+    getGuns()
 
   },[])
 
   const getGuns = async()=>{
     try{
-      let res = await axios.get('/api/guns')
+      let res = await axios.get('http://localhost:3001/api/guns')
       setGuns(res.data)
+      console.log(res.data)
     }catch(err){
       alert('err getting guns')
     }
