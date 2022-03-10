@@ -14,17 +14,33 @@ const DataProvider = (props) => {
 
   const getGuns = async()=>{
     try{
-      let res = await axios.get('http://localhost:3001/api/guns')
+      let res = await axios.get('/api/guns')
       setGuns(res.data)
       console.log(res.data)
     }catch(err){
-      alert('err getting guns')
+      alert('Error getting guns')
     }
   }
+
+  const deleteGun = async (id) =>{
+     try{
+       let res = await axios.delete(`/api/guns/${id}`)
+       let filteredGuns = guns.filter(f=> f.id !== res.data.id)
+       setGuns(filteredGuns)
+
+     }catch(err){
+       alert('Error deleting')
+     }
+  }
+
+
+
+
 
   // create an object that will be 'global state'
   const gunProviderThing = {
     getGuns,
+    deleteGun,
     guns,
     
 };
